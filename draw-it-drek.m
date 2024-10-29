@@ -43,12 +43,12 @@ while 1 % Repeat the following forever:
         while (a.readVoltage(JOY_BUTTON) == 0)
         end % Wait until button is released
     end
-    %if (inRange(x, y, u, v))
+    if (inRange(x, y, u, v))
         [alpha, beta, omega] = roboArm(x, h, y, u, v);
         servoWrite(s1, alpha);
         servoWrite(s2, beta);
         servoWrite(s3, omega);
-    %end
+    end
 end
 
 % Writes an angle, from 0 to 180, to a servo:
@@ -62,10 +62,9 @@ function servoWrite(Servo, Angle)
     writePosition(Servo, Angle / 180);
 end
 
-% Following function is under construction
-%function possible = inRange(c, d, u, v)
-%    possible = ((c * c + d * d) <= (u * u + 2 * u * v + v * v)) && ((c * c + d * d) >= (u * u - 2 * u * v + v * v));
-%end
+function possible = inRange(a, b, c, u, v)
+    possible = (a^2 + b^2 + c^2 <= (u+v)^2) && (a^2 + b^2 + c^2 > (u-v)^2);
+end
 
 % The Fido Formulas, Version 3D, in MATLAB function format:
 % See https://www.desmos.com/3d/vgpartrk5s for explanation
