@@ -29,10 +29,10 @@ h = -1;
 
 while 1 % Repeat the following forever:
     if (abs(a.readVoltage(X_JOYSTICK) - 2.5) > 0.3)
-        x = x + readVoltage(X_JOYSTICK) - 2.5;
+        x = x + a.readVoltage(X_JOYSTICK) - 2.5;
     end
     if (abs(a.readVoltage(Y_JOYSTICK) - 2.5) > 0.3)
-        y = y + readVoltage(Y_JOYSTICK) - 2.5;
+        y = y + a.readVoltage(Y_JOYSTICK) - 2.5;
     end
     if (a.readVoltage(JOY_BUTTON) == 0)
         if (h > BASE_DRAWING_HEIGHT)
