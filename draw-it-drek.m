@@ -1,6 +1,6 @@
 % DRAW (v2)
 % Draw with a robotic arm controlled by a joystick
-% Written by Carter, Omri, and Wes
+% Written by Wes
 % ENG1101 L34-4
 % 24 October 2024
 
@@ -40,10 +40,9 @@ while 1
         end
         while (a.readVoltage(JOY_BUTTON) == 0)
         end % Wait until button is released
+    end
     %if (inRange(x, y, u, v))
         [alpha, beta, omega] = roboArm(x, h, y, u, v);
-        disp("Alpha:   " + aloha);
-        disp("Beta:    " + beta);
         servoWrite(s1, alpha);
         servoWrite(s2, beta);
         servoWrite(s3, omega);
