@@ -24,14 +24,21 @@ v = 5;
 x = 5;
 y = 0;
 h = -1;
+DRAWINGSPEED = 0.001;
 
 while 1
     if (abs(a.readVoltage(X_JOYSTICK) - 2.5) > 0.3)
-        x = x + readVoltage(X_JOYSTICK) - 2.5;
+        x = (x + readVoltage(X_JOYSTICK) - 2.5)*DRAWINGSPEED;
     end
     if (abs(a.readVoltage(Y_JOYSTICK) - 2.5) > 0.3)
-        y = y + readVoltage(Y_JOYSTICK) - 2.5;
+        y = (y + readVoltage(Y_JOYSTICK) - 2.5)*DRAWINGSPEED;
     end
+if(h == BASE_DRAWING_HEIGHT) %plot joystick
+plot(x,y,'o');
+xlabel('xJoystick');
+ylabel('yJoystick');
+title('Drawing');
+end
     if (a.readVoltage(JOY_BUTTON) == 0)
         if (h > BASE_DRAWING_HEIGHT)
             h = BASE_DRAWING_HEIGHT;
