@@ -18,7 +18,7 @@ JOY_BUTTON = 'A3';
 
 % Define Constants:
 BASE_DRAWING_HEIGHT = -1;
-LIFT_HEIGHT = 0;
+LIFT_HEIGHT = 0.5;
 DRAWINGSPEED = 0.05;
 
 % Declare variables:
