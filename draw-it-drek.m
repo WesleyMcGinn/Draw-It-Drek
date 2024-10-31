@@ -18,7 +18,7 @@ JOY_BUTTON = 'A3';
 
 % Define Constants:
 BASE_DRAWING_HEIGHT = -1;
-LIFT_HEIGHT = 0;
+LIFT_HEIGHT = 0.5;
 DRAWINGSPEED = 0.05;
 
 % Declare variables:
@@ -26,18 +26,31 @@ u = 5;
 v = 5;
 x = 5;
 y = 0;
-h = -1;
+h = 5;
+
+% Prepare Plot:
+xData = [];
+yData = [];
+p = plot(y,x,'o');
+xlabel('xJoystick');
+ylabel('yJoystick');
+title('Drawing');
+xlim([(-u-v),(u+v)]);
+ylim([0,(u+v)]);
+p.XDataSource = 'yData';
+p.YDataSource = 'xData';
+i = 0;
 
 while 1 % Repeat the following forever:
-    if (abs(a.readVoltage(X_JOYSTICK) - 2.5) > 0.3)
+    % Get Joystick Inputs:
+    if (abs(a.readVoltage(X_JOYSTICK) - 2.5) > 0.3) % Horizontal Movement
         x = x + (a.readVoltage(X_JOYSTICK) - 2.5)*DRAWINGSPEED;
     end
-    if (abs(a.readVoltage(Y_JOYSTICK) - 2.5) > 0.3)
-        y = y - (a.readVoltage(Y_JOYSTICK) - 2.5)*DRAWINGSPEED;
+    if (abs(a.readVoltage(Y_JOYSTICK) - 2.5) > 0.3) % Vertical Movement
+        y = y + (a.readVoltage(Y_JOYSTICK) - 2.5)*DRAWINGSPEED;
     end
-    fprintf("X: %3.2f, Y: %3.2f\n", x, y);
-    if (a.readVoltage(JOY_BUTTON) == 0)
-        if (h > BASE_DRAWING_HEIGHT)
+    if (a.readVoltage(JOY_BUTTON) == 0) % Button Pressed (Lift or Lower Pen)
+        if (h == LIFT_HEIGHT)
             h = BASE_DRAWING_HEIGHT;
         else
             h = LIFT_HEIGHT;
@@ -45,12 +58,22 @@ while 1 % Repeat the following forever:
         while (a.readVoltage(JOY_BUTTON) == 0)
         end % Wait until button is released
     end
+    % Draw:
     if (inRange(x, h, y, u, v))
+        if (h == BASE_DRAWING_HEIGHT)
+            % Plot Drawing Points:
+            xData = [xData x];
+            yData = [yData y];
+            refreshdata
+            drawnow
+        end
+        % Move robotic arm to proper position:
         [alpha, beta, omega] = roboArm(x, h, y, u, v);
         servoWrite(s1, 98 - alpha);
         servoWrite(s2, beta);
-        servoWrite(s3, omega);
+        servoWrite(s3, 180 - omega);
     end
+    i = i+1;
 end
 
 % Writes an angle, from 0 to 180, to a servo:
@@ -64,6 +87,7 @@ function servoWrite(Servo, Angle)
     writePosition(Servo, Angle / 180);
 end
 
+% Returns true if arm can reach position:
 function possible = inRange(a, b, c, u, v)
     possible = (a^2 + b^2 + c^2 <= (u+v)^2) && (a^2 + b^2 + c^2 > (u-v)^2);
 end
