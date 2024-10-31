@@ -42,11 +42,12 @@ p.YDataSource = 'xData';
 i = 0;
 
 while 1 % Repeat the following forever:
-    if (abs(a.readVoltage(X_JOYSTICK) - 2.5) > 0.3)
+    % Get Joystick Inputs:
+    if (abs(a.readVoltage(X_JOYSTICK) - 2.5) > 0.3) % Horizontal Movement
         x = x + (a.readVoltage(X_JOYSTICK) - 2.5)*DRAWINGSPEED;
     end
-    if (abs(a.readVoltage(Y_JOYSTICK) - 2.5) > 0.3)
-        y = y - (a.readVoltage(Y_JOYSTICK) - 2.5)*DRAWINGSPEED;
+    if (abs(a.readVoltage(Y_JOYSTICK) - 2.5) > 0.3) % Vertical Movement
+        y = y + (a.readVoltage(Y_JOYSTICK) - 2.5)*DRAWINGSPEED;
     end
     if (a.readVoltage(JOY_BUTTON) == 0)
         if (h > BASE_DRAWING_HEIGHT)
@@ -70,7 +71,7 @@ while 1 % Repeat the following forever:
         [alpha, beta, omega] = roboArm(x, h, y, u, v);
         servoWrite(s1, 98 - alpha);
         servoWrite(s2, beta);
-        servoWrite(s3, omega);
+        servoWrite(s3, 180 - omega);
     end
     i = i+1;
 end
@@ -86,6 +87,7 @@ function servoWrite(Servo, Angle)
     writePosition(Servo, Angle / 180);
 end
 
+% Returns true if arm can reach position:
 function possible = inRange(a, b, c, u, v)
     possible = (a^2 + b^2 + c^2 <= (u+v)^2) && (a^2 + b^2 + c^2 > (u-v)^2);
 end
