@@ -14,16 +14,16 @@ s2 = servo(a, 'D11');
 s3 = servo(a, 'D13');
 
 % Define Constants:
-BASE_DRAWING_HEIGHT = -0.5;
-LIFT_HEIGHT = 0.5;
+BASE_DRAWING_HEIGHT = -3;
+LIFT_HEIGHT = 1;
 DRAWINGSPEED = 10;
 
 % Declare variables:
-u = 5;
-v = 5;
-x = 5;
+u = 14.5;
+v = 15;
+x = v;
 y = 0;
-h = 5;
+h = u;
 
 % Prepare Plot:
 xData = [];
@@ -68,6 +68,8 @@ LIFT = [LIFT 1];
 LIFT(120) = 1;
 LIFT(121) = 1;
 LIFT(200) = 1;
+X = X*3;
+Y = Y*3;
 
 [alpha, beta, omega] = roboArm(x, h, y, u, v);
 servoWrite(s1, 98 - alpha);
