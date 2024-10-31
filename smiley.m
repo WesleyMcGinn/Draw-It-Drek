@@ -16,7 +16,7 @@ s3 = servo(a, 'D13');
 % Define Constants:
 BASE_DRAWING_HEIGHT = -0.5;
 LIFT_HEIGHT = 0.5;
-DRAWINGSPEED = 5;
+DRAWINGSPEED = 10;
 
 % Declare variables:
 u = 5;
@@ -38,7 +38,6 @@ p.XDataSource = 'yData';
 p.YDataSource = 'xData';
 
 % Drawing Data:
-% SMILEY:
 X = [];
 Y = [];
 LIFT = [];
@@ -53,12 +52,12 @@ for i = 121:200
     LIFT = [LIFT 0];
 end
 for i = 200:201
-    X = [X 5.5];
+    X = [X 5];
     Y = [Y -1];
     LIFT = [LIFT 201-i];
 end
 for i = 202:203
-    X = [X 5.5];
+    X = [X 5];
     Y = [Y 1];
     LIFT = [LIFT 203-i];
 end
