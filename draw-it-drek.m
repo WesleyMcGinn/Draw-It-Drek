@@ -49,8 +49,8 @@ while 1 % Repeat the following forever:
     if (abs(a.readVoltage(Y_JOYSTICK) - 2.5) > 0.3) % Vertical Movement
         y = y + (a.readVoltage(Y_JOYSTICK) - 2.5)*DRAWINGSPEED;
     end
-    if (a.readVoltage(JOY_BUTTON) == 0)
-        if (h > BASE_DRAWING_HEIGHT)
+    if (a.readVoltage(JOY_BUTTON) == 0) % Button Pressed (Lift or Lower Pen)
+        if (h == LIFT_HEIGHT)
             h = BASE_DRAWING_HEIGHT;
         else
             h = LIFT_HEIGHT;
