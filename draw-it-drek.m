@@ -17,16 +17,16 @@ Y_JOYSTICK = 'A2';
 JOY_BUTTON = 'A3';
 
 % Define Constants:
-BASE_DRAWING_HEIGHT = -0.5;
-LIFT_HEIGHT = 0.5;
+BASE_DRAWING_HEIGHT = -3;
+LIFT_HEIGHT = 1;
 DRAWINGSPEED = 0.05;
 
 % Declare variables:
-u = 5;
-v = 5;
-x = 5;
+u = 14.5;
+v = 15;
+x = v;
 y = 0;
-h = 5;
+h = u;
 
 % Prepare Plot:
 xData = [];
