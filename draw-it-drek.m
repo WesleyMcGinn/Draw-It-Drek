@@ -26,8 +26,7 @@ u = 5;
 v = 5;
 x = 5;
 y = 0;
-h = -1;
-DRAWINGSPEED = 0.001;
+h = 5;
 
 while 1 % Repeat the following forever:
     if (abs(a.readVoltage(X_JOYSTICK) - 2.5) > 0.3)
