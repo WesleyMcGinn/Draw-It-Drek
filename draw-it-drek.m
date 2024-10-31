@@ -28,6 +28,19 @@ x = 5;
 y = 0;
 h = 5;
 
+% Prepare Plot:
+xData = [];
+yData = [];
+p = plot(y,x,'o');
+xlabel('xJoystick');
+ylabel('yJoystick');
+title('Drawing');
+xlim([(-u-v),(u+v)]);
+ylim([0,(u+v)]);
+p.XDataSource = 'yData';
+p.YDataSource = 'xData';
+i = 0;
+
 while 1 % Repeat the following forever:
     if (abs(a.readVoltage(X_JOYSTICK) - 2.5) > 0.3)
         x = x + (a.readVoltage(X_JOYSTICK) - 2.5)*DRAWINGSPEED;
@@ -35,11 +48,6 @@ while 1 % Repeat the following forever:
     if (abs(a.readVoltage(Y_JOYSTICK) - 2.5) > 0.3)
         y = y - (a.readVoltage(Y_JOYSTICK) - 2.5)*DRAWINGSPEED;
     end
-    fprintf("X: %3.2f, Y: %3.2f\n", x, y);
-    plot(x,y,'o');
-    xlabel('xJoystick');
-    ylabel('yJoystick');
-    title('Drawing');
     if (a.readVoltage(JOY_BUTTON) == 0)
         if (h > BASE_DRAWING_HEIGHT)
             h = BASE_DRAWING_HEIGHT;
@@ -49,12 +57,22 @@ while 1 % Repeat the following forever:
         while (a.readVoltage(JOY_BUTTON) == 0)
         end % Wait until button is released
     end
+    % Draw:
     if (inRange(x, h, y, u, v))
+        if (h == BASE_DRAWING_HEIGHT)
+            % Plot Drawing Points:
+            xData = [xData x];
+            yData = [yData y];
+            refreshdata
+            drawnow
+        end
+        % Move robotic arm to proper position:
         [alpha, beta, omega] = roboArm(x, h, y, u, v);
         servoWrite(s1, 98 - alpha);
         servoWrite(s2, beta);
         servoWrite(s3, omega);
     end
+    i = i+1;
 end
 
 % Writes an angle, from 0 to 180, to a servo:
