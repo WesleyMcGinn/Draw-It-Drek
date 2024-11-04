@@ -1,7 +1,6 @@
 % DRAW-IT DREK (v2)
 % Draw with a robotic arm controlled by a joystick
 % Written by Carter, Omri, and Wesley
-% ENG1101 L34-4
 % 29 October 2024
 
 clc

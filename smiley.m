@@ -1,7 +1,6 @@
 % DRAW-IT DREK (v3)
 % Draw a predefined drawing with a robotic arm
 % Written by Carter, Omri, and Wesley
-% ENG1101 L34-4
 % 30 October 2024
 
 clc
