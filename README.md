@@ -32,6 +32,13 @@ However economically convenient, we do not recommend using these servos if any a
 For more information on the inverse kinematics equations, see it simulated in [Desmos 3D](https://www.desmos.com/3d/vgpartrk5s).  These formulas were created by [Wesley McGinn](https://github.com/WesleyMcGinn) and are free for anyone to use.
 
 
+## Files In This Repository
+| File Name | Purpose |
+| :-- | :-- |
+| [`draw-it-drek.m`](draw-it-drek.m) | Use a joystick connected to an Arduino Uno to draw with the robotic arm.  Move the joystick in any direction to move the pen/marker, and press down on the joystick to raise or lower the pen/marker. |
+| [`smiley.m`](smiley.m) | Draw a smiley-face from a predefined set of points. |
+
+
 ## Attribution
 Please **do not** use this code for your robotic arm without crediting us.  In other words, if you did not write this code, do not claim that you did.
 
