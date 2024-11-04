@@ -16,10 +16,10 @@ X_JOYSTICK = 'A1';
 Y_JOYSTICK = 'A2';
 JOY_BUTTON = 'A3';
 
-% Define Constants:
+% Define constants:
 BASE_DRAWING_HEIGHT = -3;
 LIFT_HEIGHT = 1;
-DRAWINGSPEED = 0.05;
+DRAWINGSPEED = 0.15;
 
 % Declare variables:
 u = 14.5;
@@ -28,7 +28,7 @@ x = v;
 y = 0;
 h = u;
 
-% Prepare Plot:
+% Prepare live plot:
 xData = [];
 yData = [];
 p = plot(y,x,'o');
@@ -61,7 +61,7 @@ while 1 % Repeat the following forever:
     % Draw:
     if (inRange(x, h, y, u, v))
         if (h == BASE_DRAWING_HEIGHT)
-            % Plot Drawing Points:
+            % Plot drawing points live:
             xData = [xData x];
             yData = [yData y];
             refreshdata
@@ -93,7 +93,7 @@ function possible = inRange(a, b, c, u, v)
 end
 
 % The Fido Formulas, Version 3D, in MATLAB function format:
-% See https://www.desmos.com/3d/vgpartrk5s for explanation
+% See www.desmos.com/3d/vgpartrk5s for explanation
 function [alpha, beta, omega] = roboArm(a, b, c, u, v)
     alpha = (pi * floor(sqrt(a^2 + c^2) / (u + v + 1)) + atan(b / sqrt(a^2 + c^2)) + acos((a^2 + b^2 + c^2 + u^2 - v^2)*sqrt(a^2 + b^2 + c^2) / (2*u*a*a + 2*u*b*b + 2*u*c*c))) * 180/pi;
     beta = (acos((u^2 + v^2 - a^2 - b^2 - c^2) / (2*u*v))) * 180/pi;

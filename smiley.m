@@ -13,7 +13,7 @@ s1 = servo(a, 'D12');
 s2 = servo(a, 'D11');
 s3 = servo(a, 'D13');
 
-% Define Constants:
+% Define constants:
 BASE_DRAWING_HEIGHT = -3;
 LIFT_HEIGHT = 1;
 DRAWINGSPEED = 10;
@@ -25,7 +25,7 @@ x = v;
 y = 0;
 h = u;
 
-% Prepare Plot:
+% Prepare plot:
 xData = [];
 yData = [];
 p = plot(y,x,'o');
@@ -37,7 +37,7 @@ ylim([0,(u+v)]);
 p.XDataSource = 'yData';
 p.YDataSource = 'xData';
 
-% Drawing Data:
+% Generate drawing data for smiley:
 X = [];
 Y = [];
 LIFT = [];
@@ -71,11 +71,14 @@ LIFT(200) = 1;
 X = X*3;
 Y = Y*3;
 
+% Initial position:
 [alpha, beta, omega] = roboArm(x, h, y, u, v);
 servoWrite(s1, 98 - alpha);
 servoWrite(s2, beta);
 servoWrite(s3, 180 - omega);
-input("Press enter when ready.");
+input("Press enter when ready."); % Wait for calibration
+
+% Draw:
 for i=1:length(X) % Repeat the following until drawing done:
     pause(1/DRAWINGSPEED);
     x = X(i);
@@ -85,10 +88,9 @@ for i=1:length(X) % Repeat the following until drawing done:
     else
         h = BASE_DRAWING_HEIGHT;
     end
-    % Draw:
     if (inRange(x, h, y, u, v))
         if (h == BASE_DRAWING_HEIGHT)
-            % Plot Drawing Points:
+            % Plot drawing points live:
             xData = [xData x];
             yData = [yData y];
             refreshdata
@@ -119,7 +121,7 @@ function possible = inRange(a, b, c, u, v)
 end
 
 % The Fido Formulas, Version 3D, in MATLAB function format:
-% See https://www.desmos.com/3d/vgpartrk5s for explanation
+% See www.desmos.com/3d/vgpartrk5s for explanation
 function [alpha, beta, omega] = roboArm(a, b, c, u, v)
     alpha = (pi * floor(sqrt(a^2 + c^2) / (u + v + 1)) + atan(b / sqrt(a^2 + c^2)) + acos((a^2 + b^2 + c^2 + u^2 - v^2)*sqrt(a^2 + b^2 + c^2) / (2*u*a*a + 2*u*b*b + 2*u*c*c))) * 180/pi;
     beta = (acos((u^2 + v^2 - a^2 - b^2 - c^2) / (2*u*v))) * 180/pi;
