@@ -23,6 +23,10 @@ Through the use of advanced inverse kinematics, the endpoint of the robotic arm 
 ## Motors
 You will need three servo motors, one for each calculated angle (alpha, beta, omega).  You can use any PWM-signal fixed servo motors that support angles from 0 to 180 degrees.  We used 9g micro servo motors, though it is certainly worth noting that such inaccurate and low-torque motors will produce very poor results.  The accuracy of your robotic arm will ultimately be limited by the accuracy and strength of your servo motors.
 
+<img src="https://github.com/user-attachments/assets/9e61cc5d-c5e6-4a71-b05f-4091425247d4" alt="Draw-It Drek with 9g Micro Servo Motors" width="300px">
+
+However economically convenient, we do not recommend using these servos if any amount of accuracy is important to you.
+
 
 ## Math
 For more information on the inverse kinematics equations, see it simulated in [Desmos 3D](https://www.desmos.com/3d/vgpartrk5s).  These formulas were created by [Wesley McGinn](https://github.com/WesleyMcGinn) and are free for anyone to use.
